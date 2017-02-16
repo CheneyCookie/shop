@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- 国际化资源 -->
+	<constant name="struts.custom.il8n.resources" value="validation"></constant>
+	
+	
+	
+	<package name="shop" namespace="/" extends="struts-default">
+		<!-- 定义新的拦截器栈，配置prepare拦截器栈的 alwaysInvokePrepare参数值为false -->
+		<interceptors>
+			<interceptor-stack name="sshStack">
+				<interceptor-ref name="paramsPrepareParamsStack">
+					<param name="prepare.alwaysInvokePrepare">false</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 使用新的拦截器栈 -->
+		<default-interceptor-ref name="sshStack"></default-interceptor-ref>
+		
+		<!-- 抛出异常页面跳转 -->
+		<global-results>
+			<result name="exception">/WEB-INF/views/message.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="exception" exception=""></exception-mapping>
+		</global-exception-mappings>
+		
+		<action name="cate_*" class="categoryAction" method="{1}">
+			<result></result>
+		</action>
+		
+		<action name="acco_*" class="accountAction" method="{1}">
+			<result></result>
+		</action>
+		
+		<action name="send_*_*" class="sendAction">
+			<result name="send">/WEB-INF/{1}/{2}.jsp</result>
+		</action>
+	</package>
+	
+	
+</struts>
