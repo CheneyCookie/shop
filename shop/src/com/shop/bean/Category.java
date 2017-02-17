@@ -12,6 +12,7 @@ public class Category implements Serializable {
 	private Integer id;
 	private String type;
 	private Boolean hot;
+	private Account account;
 	
 	public Category() {
 	}
@@ -52,6 +53,15 @@ public class Category implements Serializable {
 
 	public void setHot(Boolean hot) {
 		this.hot = hot;
+	}
+	
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	@Override

@@ -9,6 +9,5 @@
 	<a href="cate_save">测试</a>
 	<a href="acco_save?login=admin&password=123">acc测试</a>
 	<a href="send_main_aindex">访问UI版</a>
-	<a href="send_main_index">访问frameset版</a>
 </body>
 </html>

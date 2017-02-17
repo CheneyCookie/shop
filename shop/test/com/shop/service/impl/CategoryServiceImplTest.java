@@ -21,5 +21,13 @@ public class CategoryServiceImplTest {
 	public void testSave() {
 		categoryService.save(new Category("测试",true));
 	}
+	
+	@Test
+	public void queryJoinAccount(){
+		for(Category category:categoryService.queryJoinAccount("",2,3)){
+			System.out.println(category);
+			System.out.println(category.getAccount());
+		}
+	}
 
 }
