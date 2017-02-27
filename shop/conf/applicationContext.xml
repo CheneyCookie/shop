@@ -12,8 +12,31 @@
 	
 	<!-- 配置注解 -->
 	<context:component-scan base-package="com.shop.."></context:component-scan>	
+	<!-- 所有的properties文件都应该交给Spring管理，而且在启动时加载
+	 	Spring支持两种方式：property-placeholder仅仅在xml中使用
+	 -->
 	<!-- 导入资源文件 -->
-	<context:property-placeholder location="classpath:db.properties"/>
+	<!-- 
+	<context:property-placeholder location="classpath:*.properties"/>
+	 -->
+	 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	 	<property name="locations">
+	 		<array>
+	 			<value>classpath:db.properties</value>
+	 		</array>
+	 	</property>
+	 </bean>
+	 <!-- 仅仅支持注解的方式注入 -->
+	 <bean id="prop" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	 	<property name="locations">
+	 		<array>
+	 			<value>classpath:public.properties</value>
+	 			<value>classpath:pay.properties</value>
+	 			<value>classpath:mail.properties</value>
+	 		</array>
+	 	</property>
+	 </bean>
+	 
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="user" value="${jdbc.user}"></property>
@@ -40,8 +63,10 @@
 	<!-- 配置事务属性 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="get" read-only="true"/>
-			<tx:method name="*"/>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="*" propagation="SUPPORTS"/>
 		</tx:attributes>
 	</tx:advice>
 	

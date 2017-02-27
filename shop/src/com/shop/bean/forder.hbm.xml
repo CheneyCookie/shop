@@ -1,0 +1,58 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping package="com.shop.bean">
+	<class name="Forder" table="shop_forder">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="name"></property>
+		<property name="phone"></property>
+		<property name="date"></property>
+		<property name="remark"></property>
+		<property name="total"></property>
+		<property name="post"></property>
+		<property name="address"></property>
+		<!-- lazy="false":则级联查询关联对象 
+			N+1问题：首先发出一条语句查询当前对象，然后发出N条对象查询关联对象，N不确定，因此效率比较低
+			lazy:是否加载关联对象如果为false则及时加载，fetch:什么方式加载关联对象，可以选择select(默认)和join
+			注意在many-to-one的情况下，join是无效的，即使有效，也不要配置前面两个参数，因为配置在XML中不灵活
+			
+			解决方案：自己写hql语句取代基于XML的配置，则可以提升性能，在任何情况下，不需要配置lazy="false" fetch="join"
+		-->
+		<many-to-one name="status" class="Status">
+			<column name="sid"></column>
+		</many-to-one>
+		<many-to-one name="user" class="User">
+			<column name="uid"></column>
+		</many-to-one>
+		<!-- 
+			步骤：如果是多对一，则通过子表中的外键，查找对应主表中的主键，
+				如果是一对多，则通过主表中的主键，去查找子表中相应的外键。
+				查询有关： lazy="true"是否支持懒加载   fetch="join"关联对象的抓取策略，为了提升性能，此处不应该配置
+				更新有关： cascade="all"是否支持级联操作，hibernate中有独特级联插入	 
+				inverse="false"反向，指定谁来维护外键，建议为true,如果为false,
+				则主表当前表会多update语句
+		 -->
+		 <!-- 
+		<set name="sorderList" lazy="true" fetch="join" inverse="true" cascade="all">
+		  -->
+		<!-- 代表外键
+			<key>
+				<column name="fid"></column>
+			</key>
+			<one-to-many class="Sorder"/>
+		</set>
+		 -->
+		<list name="sorderList" table="shop_sorder" lazy="true" fetch="join" inverse="true" cascade="all">
+			<key>
+				<column name="fid"></column>
+			</key>
+			<list-index>
+				<column name="idx"></column>
+			</list-index>
+			<one-to-many class="Sorder"/>
+		</list>
+	</class>
+</hibernate-mapping>

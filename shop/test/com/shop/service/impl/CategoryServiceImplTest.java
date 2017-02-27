@@ -29,5 +29,15 @@ public class CategoryServiceImplTest {
 			System.out.println(category.getAccount());
 		}
 	}
+	
+	@Test
+	public void getAccount(){
+		System.out.println(categoryService.getCount(""));
+	}
+	
+	@Test
+	public void deleteByIds(){
+		categoryService.deleteByIds("7,8,10,11,12,13");
+	}
 
 }

@@ -1,6 +1,8 @@
 package com.shop.action;
 
+import java.io.InputStream;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.ApplicationAware;
@@ -12,8 +14,17 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.shop.bean.FileImage;
 import com.shop.service.AccountService;
 import com.shop.service.CategoryService;
+import com.shop.service.ForderService;
+import com.shop.service.PayService;
+import com.shop.service.ProductService;
+import com.shop.service.SorderService;
+import com.shop.service.UserService;
+import com.shop.util.FileUpload;
+import com.shop.util.EmailUtil;
+import com.shop.util.MessageUtil;
 
 /*
  * Struts执行流程：先创建Action，再调用拦截器，拦截器访问成功再调用Action的方法
@@ -23,7 +34,7 @@ import com.shop.service.CategoryService;
  * */
 @Controller
 @Scope("prototype")
-
+@SuppressWarnings("unchecked")
 public class BaseAction<T> extends ActionSupport implements RequestAware,SessionAware,ApplicationAware,ModelDriven<T>{
 
 	private static final long serialVersionUID = 1L;
@@ -32,10 +43,34 @@ public class BaseAction<T> extends ActionSupport implements RequestAware,Session
 	protected Map<String, Object> session;
 	protected Map<String, Object> application;
 	protected T model;
+	protected Integer page;
+	protected Integer rows;
+	protected FileImage fileImage;
+	protected List<T> jsonList=null;
+	protected Map<String, Object> pageMap=null;
 	@Autowired
 	protected CategoryService categoryService;
 	@Autowired
 	protected AccountService accountService;
+	@Autowired
+	protected ProductService productService;
+	@Autowired
+	protected FileUpload fileUpload;
+	@Autowired
+	protected ForderService forderService;
+	@Autowired
+	protected SorderService sorderService;
+	@Autowired
+	protected UserService userService;
+	@Autowired
+	protected PayService payService;
+	@Autowired
+	protected EmailUtil emailUtil;
+	@Autowired
+	protected MessageUtil messageUtil;
+	//获取要删除的id
+	protected String ids;
+	protected InputStream inputStream;
 	
 //	public void setAccountService(AccountService accountService) {
 //		this.accountService = accountService;
@@ -72,4 +107,49 @@ public class BaseAction<T> extends ActionSupport implements RequestAware,Session
 		return model;
 	}
 
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getRows() {
+		return rows;
+	}
+
+	public void setRows(Integer rows) {
+		this.rows = rows;
+	}
+	
+	public List<T> getJsonList() {
+		return jsonList;
+	}
+	
+	public Map<String, Object> getPageMap() {
+		return pageMap;
+	}
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+	
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+	public FileImage getFileImage() {
+		return fileImage;
+	}
+
+	public void setFileImage(FileImage fileImage) {
+		this.fileImage = fileImage;
+	}
+	
+	
 }

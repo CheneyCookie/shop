@@ -5,14 +5,16 @@
 <struts>
 
 	<constant name="struts.enable.DynamicMethodInvocation" value="false"></constant>
+	<!-- 开发模式，在修改struts配置文件的时候不需要重启容器 -->
 	<constant name="struts.devMode" value="true"></constant>
 	<!-- 国际化资源 -->
 	<constant name="struts.custom.il8n.resources" value="validation"></constant>
 	
 	
 	
-	<package name="shop" namespace="/" extends="struts-default">
+	<package name="shop" namespace="/" extends="json-default">
 		<!-- 定义新的拦截器栈，配置prepare拦截器栈的 alwaysInvokePrepare参数值为false -->
+		<!-- 
 		<interceptors>
 			<interceptor-stack name="sshStack">
 				<interceptor-ref name="paramsPrepareParamsStack">
@@ -20,29 +22,107 @@
 				</interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
+		 -->
 		
 		<!-- 使用新的拦截器栈 -->
+		<!-- 
 		<default-interceptor-ref name="sshStack"></default-interceptor-ref>
+		 -->
 		
-		<!-- 抛出异常页面跳转 -->
+		<!-- 抛出异常页面跳转
 		<global-results>
 			<result name="exception">/WEB-INF/views/message.jsp</result>
 		</global-results>
 		<global-exception-mappings>
 			<exception-mapping result="exception" exception=""></exception-mapping>
 		</global-exception-mappings>
+		 -->
+		 
+		 <global-results>
+		 	<result name="aindex">/WEB-INF/main/aindex.jsp</result>
+		 	<result name="index">/index.jsp</result>
+		 	<result name="ulogin" type="redirect">/ulogin.jsp</result>
+		 </global-results>
 		
 		<action name="cate_*" class="categoryAction" method="{1}">
-			<result></result>
+		<!-- 必须先添加json包，然后继承json-deafult -->
+			<result name="jsonMap" type="json">
+				<!-- 要转换成json数据的对象 -->
+				<param name="root">pageMap</param>
+				<!-- 配置黑名单，过滤不需要的选项，支持正则表达式  
+				\d： 一个数字
+				+：一个或多个
+				?：0或1
+				*：1或多
+				[ABC]：自定义类型，必须是ABC中其中一个
+				^：取反
+				.：任意字符
+				{total:3,rows[{account:{id:1,login:admin,name:管理员,password:admin},hot:true,type:男士休闲},...]}
+				 -->
+				<param name="excludeProperties">
+					rows\[\d+\]\.account\.password,
+					rows\[\d+\]\.account\.name
+				</param>
+			</result>
+			<result name="jsonList" type="json">
+				<param name="root">jsonList</param>
+				<param name="excludeProperties">
+					\[\d+\]\.account
+				</param>
+			</result>
+			<result name="stream" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
 		</action>
 		
 		<action name="acco_*" class="accountAction" method="{1}">
-			<result></result>
+			<result name="jsonList" type="json">
+				<param name="root">jsonList</param>
+				<param name="excludeProperties">
+					<!-- [0].pass,[1].pass -->
+					\[\d+\]\.password,
+					\[\d+\]\.name
+				</param>
+			</result>
+		</action>
+		
+		<action name="pro_*" class="productAction" method="{1}">
+			<result name="jsonMap" type="json">
+				<param name="root">pageMap</param>
+				<param name="excludeProperties">
+					<!-- rows[0].category.account,rows[0].date -->
+					rows\[\d+\]\.category\.account,
+					rows\[\d+\]\.date
+				</param>
+			</result>
+			<result name="stream" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+			<result name="detail">
+				/detail.jsp
+			</result>
 		</action>
 		
 		<action name="send_*_*" class="sendAction">
 			<result name="send">/WEB-INF/{1}/{2}.jsp</result>
 		</action>
+		
+		<action name="sorder_*" class="sorderAction" method="{1}">
+			<result name="showCar" type="redirect">/showCar.jsp</result>
+		</action>
+		
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="goURL" type="redirect">
+				${#session.goURL}
+			</result>
+		</action>
+		<action name="forder_*" class="forderAction" method="{1}">
+			<result name="bank" type="redirect">/user/bank.jsp</result>
+		</action>
+		<action name="pay_*" class="payAction" method="{1}">
+			<result name="pay">/user/pay.jsp</result>
+		</action>
+		
 	</package>
 	
 	

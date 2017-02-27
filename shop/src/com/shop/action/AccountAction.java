@@ -9,15 +9,9 @@ public class AccountAction extends BaseAction<Account> {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
-	
-	public void setId(Integer id) {
-		this.id = id;
+	public String query(){
+		
+		jsonList=accountService.query();
+		return "jsonList";
 	}
-
-	public String save(){
-		System.out.println(model);
-		return SUCCESS;
-	}
-
 }

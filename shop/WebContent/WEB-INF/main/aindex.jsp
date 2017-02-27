@@ -43,7 +43,7 @@
 					$("#tt").tabs("add",{
 						title:text,
 						closable:true,
-						content:'<iframe src="send_category_query" frameborder="0" width="100%" height="100%" />'
+						content:'<iframe title=' + text + ' src='+href+' frameborder="0" width="100%" height="100%" />'
 						//href:默认是通过url地址，加载远程页面，但是仅仅是body部分
 						//href:'send_category_query'
 					});
@@ -62,8 +62,8 @@
     	<div id="menu" class="easyui-accordion" data-options="fit:true">   
     		<div title="基本操作">   
         		<ul>
-	 				<li><a href="#" title="send_main_query">类别管理</a></li>
-	 				<li><a href="#">商品管理</a></li>
+	 				<li><a href="#" title="send_category_query">类别管理</a></li>
+	 				<li><a href="#" title="send_product_query">商品管理</a></li>
 		 		</ul>   
     		</div>   
    			<div title="其他操作">   
@@ -80,6 +80,7 @@
 		    	此处以后显示相应的系统信息（当前操作系统的类型，包括当前项目的域名，硬件的相关配置，或者显示报表）
 			</div>   
 		</div> 
-    </div>   
+    </div> 
+    <div id="win" data-options="collapsible:false,minimizable:false,maximizable:false,modal:true"></div>  
 </body> 
 </html>
