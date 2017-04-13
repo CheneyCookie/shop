@@ -1,6 +1,7 @@
 package com.shop.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Forder implements Serializable{
 	//简单描述
 	private String remark;
 	//总价
-	private Double total;
+	private BigDecimal total;
 	//邮编
 	private String post;
 	//收货地址
@@ -79,11 +80,11 @@ public class Forder implements Serializable{
 		this.remark = remark;
 	}
 
-	public Double getTotal() {
+	public BigDecimal getTotal() {
 		return total;
 	}
 
-	public void setTotal(Double total) {
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
 

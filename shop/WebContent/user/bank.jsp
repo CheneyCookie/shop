@@ -15,19 +15,19 @@
                     <div class="welcom fl">欢迎光临LEISUPET SHOP!</div>
                     <ul class="top_links fr">
                         <li class="highlight">
-                            <a href="#">首页</a>
+                            <a href="${shop }/index.jsp">首页</a>
                         </li>
                         <li>
                             <a href="#">我的账户</a>
                         </li>
                         <li>
-                            <a href="#">购物车</a>
+                            <a href="${shop }/showCar.jsp">购物车</a>
                         </li>
                         <li>
-                            <a href="#">注册</a>
+                            <a href="${shop }/uregister.jsp">注册</a>
                         </li>
                         <li >
-                            <a href="#">登录</a>
+                            <a href="${shop }/ulogin.js">登录</a>
                         </li>
                     </ul>
                     <!--头部小导航结束-->
@@ -37,16 +37,7 @@
                             <img src="images/logo.png" />
                         </a>
                     </h1>
-                    <!-- 小购物车 -->
-                    <div class="minicart">
-                        <a class="minicart_link" href="#">
-                            <span class="item"> <b>2</b>
-                                件/
-                            </span>
-                            <span class="price"> <b>￥199.80</b>
-                            </span>
-                        </a>
-                    </div>
+                    
                     <!-- 小购物车结束 -->
                     <!-- 搜索框 -->
                     <div class="header_search">
@@ -93,7 +84,7 @@
                                         <a href="#">牛仔裤</a>
                                     </li>
                                     <li>
-                                        <a href="#">风衣 & 运动夹克</a>
+                                        <a href="#">风衣  运动夹克</a>
                                     </li>
                                 </ul>
                             </li>
@@ -119,7 +110,7 @@
                                         <a href="#">牛仔系列</a>
                                     </li>
                                     <li>
-                                        <a href="#">风衣 & 西服</a>
+                                        <a href="#">风衣  西服</a>
                                     </li>
                                 </ul>
                             </li>
@@ -147,7 +138,7 @@
                                         <a href="#">牛仔裤</a>
                                     </li>
                                     <li>
-                                        <a href="#">风衣 & 运动夹克</a>
+                                        <a href="#">风衣  运动夹克</a>
                                     </li>
                                 </ul>
                             </li>
@@ -173,7 +164,7 @@
                                         <a href="#">牛仔系列</a>
                                     </li>
                                     <li>
-                                        <a href="#">风衣 & 西服</a>
+                                        <a href="#">风衣  西服</a>
                                     </li>
                                 </ul>
                             </li>
@@ -373,6 +364,7 @@
                     </ul>
 
                 </div>
+            </div>
             </div>
             </div>
   </body>

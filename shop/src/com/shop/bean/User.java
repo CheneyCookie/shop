@@ -21,6 +21,15 @@ public class User implements Serializable {
 	public User() {
 		super();
 	}
+	
+	
+
+	public User(String login) {
+		super();
+		this.login = login;
+	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -78,4 +87,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", name=" + name
+				+ ", password=" + password + ", sex=" + sex + ", phone="
+				+ phone + ", email=" + email + "]";
+	}
+
+	
 }

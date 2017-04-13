@@ -156,7 +156,7 @@
 				searcher:function(value,name){
 					//获取当前查询的关键字，通过DataGrid加载相应的信息
 					$('#dg').datagrid('load',{
-						type: value
+						name: value
 					});
 				},
 				menu:'#mm',

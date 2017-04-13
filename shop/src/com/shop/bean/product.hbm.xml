@@ -8,7 +8,7 @@
 			<generator class="native"></generator>
 		</id>
 		<property name="name"></property>
-		<property name="price"></property>
+		<property name="price" type="java.math.BigDecimal"></property>
 		<property name="picture"></property>
 		<property name="remark"></property>
 		<property name="xremark"></property>

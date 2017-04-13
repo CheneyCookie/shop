@@ -1,14 +1,22 @@
 package com.shop.service.impl;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import com.shop.dao.AccountDao;
+import com.shop.dao.BaseDao;
+import com.shop.dao.CategoryDao;
+import com.shop.dao.ForderDao;
+import com.shop.dao.ProductDao;
+import com.shop.dao.SorderDao;
+import com.shop.dao.UserDao;
 import com.shop.service.BaseService;
 
 @SuppressWarnings("unchecked")
@@ -16,9 +24,24 @@ import com.shop.service.BaseService;
 @Lazy(true)
 public class BaseServiceImpl<T> implements BaseService<T> {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+//	@Autowired
+//	private SessionFactory sessionFactory;
 	//clazz中存储了当前操作的类型
+	protected BaseDao baseDao;//如果当前T是account,则baseDao里面是accountDao,category则baseDao就是categoryDao
+	@Autowired
+	protected AccountDao accountDao;
+	@Autowired
+	protected CategoryDao categoryDao;
+	@Autowired
+	protected ForderDao forderDao;
+	@Autowired
+	protected ProductDao productDao;
+	@Autowired
+	protected SorderDao sorderDao;
+	@Autowired
+	protected UserDao userDao;
+	
+	
 	private Class clazz;
 	
 	public BaseServiceImpl(){
@@ -28,40 +51,46 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		ParameterizedType type=(ParameterizedType) this.getClass().getGenericSuperclass();
 		clazz=(Class) type.getActualTypeArguments()[0];
 	}
-//	public void setSessionFactory(SessionFactory sessionFactory) {
-//		this.sessionFactory = sessionFactory;
-//	}
 	
-	public Session getSession(){
-		return this.sessionFactory.getCurrentSession();
+	@PostConstruct
+	public void init(){
+		String clazzName=clazz.getSimpleName();
+		String clazzDao=clazzName.substring(0,1)
+				.toLowerCase()+clazzName
+				.substring(1)+"Dao";// Account ==>accountDao
+		try {
+			Field clazzField=this.getClass().getSuperclass().getDeclaredField(clazzDao);
+			Field baseField=this.getClass().getSuperclass().getDeclaredField("baseDao");
+			baseField.set(this, clazzField.get(this));
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void save(T t) {
-		getSession().save(t);
+		baseDao.save(t);
 	}
 
 	@Override
 	public void update(T t) {
-		getSession().update(t);
+		baseDao.update(t);
 	}
 
 	@Override
 	public void delete(int id) {
-		String hql="delete "+clazz.getSimpleName()+" where id=?";
-		getSession().createQuery(hql).setInteger(0, id).executeUpdate();
+		baseDao.delete(id);
 	}
 
 	@Override
 	public T get(int id) {
-		return (T) getSession().get(clazz, id);
+		return (T) baseDao.get(id);
 	}
 
 	
 	@Override
 	public List<T> query() {
-		String hql="from "+clazz.getSimpleName();
-		return getSession().createQuery(hql).list();
+		return baseDao.query();
 	}
 
 

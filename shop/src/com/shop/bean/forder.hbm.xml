@@ -11,7 +11,7 @@
 		<property name="phone"></property>
 		<property name="date"></property>
 		<property name="remark"></property>
-		<property name="total"></property>
+		<property name="total" type="java.math.BigDecimal"></property>
 		<property name="post"></property>
 		<property name="address"></property>
 		<!-- lazy="false":则级联查询关联对象 

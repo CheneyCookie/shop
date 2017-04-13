@@ -1,6 +1,7 @@
 package com.shop.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 //购物项，订单项
 public class Sorder implements Serializable {
@@ -9,7 +10,7 @@ public class Sorder implements Serializable {
 	private Integer id;
 	private String name;
 	//单价
-	private Float price;
+	private BigDecimal price;
 	//数量
 	private Integer number;
 	//所属购物车
@@ -37,11 +38,11 @@ public class Sorder implements Serializable {
 		this.name = name;
 	}
 
-	public Float getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Float price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

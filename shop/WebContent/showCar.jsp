@@ -3,6 +3,53 @@
 <html>
 <head>
 	<%@include file="/public/head.jspf"%>
+	<script type="text/javascript">
+		$(function(){
+			
+			$(function(){
+				$.post("forder_updateNumber",{},function(number){
+					$("#itemnum").html(number);
+					
+				},"text");
+			});
+			
+			//1.注册事件
+			$(".text").change(function(){
+				
+				$(function(){
+					$.post("forder_updateNumber",{},function(number){
+						$("#itemnum").html(number);
+					},"text");
+				});
+				
+				
+				//2.验证数据的有效性，必须是正整数
+				var number=this.value;
+				if(!isNaN(number)&&parseInt(number)==number&&number>0){
+					$(this).attr("lang",number);
+					var pid=$(this).parents("tr:first").attr("lang");
+					//发送ajax请求，传输当前的数量与商品的id返回的是总价格
+					$.post("sorder_updateSorder",{number:number,'product.id':pid},function(total){
+						$("#total").html(total);
+						$("#ttotal").html(total);
+						$(function(){
+							$.post("forder_updateNumber",{},function(number){
+								$("#itemnum").html(number);
+							},"text");
+						});
+						
+					},"text");
+					//保留两位小数
+					//更新单个商品小计
+					var price=($(this).parent().prev().html()*number).toFixed(2);
+					$(this).parent().next().html(price);
+				}else{
+					this.value=$(this).attr("lang");
+				}
+				
+			});
+		});
+	</script>
 <body>
 	<div class="wrapper">
 		<div class="header">
@@ -12,11 +59,11 @@
 					<!--头部小导航-->
 					<div class="welcom fl">欢迎光临LEISUPET SHOP!</div>
 					<ul class="top_links fr">
-						<li class="highlight"><a href="#">首页</a></li>
+						<li class="highlight"><a href="index.jsp">首页</a></li>
 						<li><a href="#">我的账户</a></li>
-						<li><a href="#">购物车</a></li>
-						<li><a href="#">注册</a></li>
-						<li><a href="#">登录</a></li>
+						<li><a href="showCar.jsp">购物车</a></li>
+						<li><a href="uregister.jsp">注册</a></li>
+						<li><a href="ulogin.jsp">登录</a></li>
 					</ul>
 					<!--头部小导航结束-->
 					<!-- logo -->
@@ -25,8 +72,8 @@
 					</h1>
 					<!-- 小购物车 -->
 					<div class="minicart">
-						<a class="minicart_link" href="#"> <span class="item">
-								<b>2</b> 件/ </span> <span class="price"> <b>￥199.80</b> </span> </a>
+						<a class="minicart_link" href="${shop }/showCar.jsp"> <span id="itemnum" class="item">
+								  </span>件/ <span class="price" id="ttotal"> <b>${sessionScope.forder.total }</b> </span> </a>
 					</div>
 					<!-- 小购物车结束 -->
 					<!-- 搜索框 -->
@@ -55,7 +102,7 @@
 									<li><a href="#">卡其裤</a></li>
 									<li><a href="#">休闲裤</a></li>
 									<li><a href="#">牛仔裤</a></li>
-									<li><a href="#">风衣 & 运动夹克</a></li>
+									<li><a href="#">风衣  运动夹克</a></li>
 								</ul></li>
 							<li><a href="#">装饰品</a>
 								<ul>
@@ -65,7 +112,7 @@
 									<li><a href="#">帽子和手套</a></li>
 									<li><a href="#">生活时尚</a></li>
 									<li><a href="#">牛仔系列</a></li>
-									<li><a href="#">风衣 & 西服</a></li>
+									<li><a href="#">风衣  西服</a></li>
 								</ul></li>
 						</ul></li>
 					<!--二级菜单结束-->
@@ -77,7 +124,7 @@
 									<li><a href="#">休闲裤</a></li>
 									<li><a href="#">卡其裤</a></li>
 									<li><a href="#">牛仔裤</a></li>
-									<li><a href="#">风衣 & 运动夹克</a></li>
+									<li><a href="#">风衣  运动夹克</a></li>
 								</ul></li>
 							<li><a href="#">装饰品</a>
 								<ul>
@@ -87,7 +134,7 @@
 									<li><a href="#">帽子和手套</a></li>
 									<li><a href="#">生活时尚</a></li>
 									<li><a href="#">牛仔系列</a></li>
-									<li><a href="#">风衣 & 西服</a></li>
+									<li><a href="#">风衣  西服</a></li>
 								</ul></li>
 						</ul> <!--二级菜单结束--></li>
 					<li><a href="#">儿童</a></li>
@@ -111,21 +158,22 @@
 						<th class="align_center" width="10%">删除</th>
 					</tr>
 					<c:forEach items="${sessionScope.forder.sorderList }" var="sorder">
-						<tr>
+						<tr lang="${sorder.product.id }">
 							<td class="align_center"><a href="#" class="edit">${sorder.product.id }</a>
 							</td>
-							<td width="80px"><img src="${shop }/images/${sorder.product.picture}" width="80" height="80" />
+							<td width="80px"><img src="${shop }/image/${sorder.product.picture}" width="80" height="80" />
 							</td>
 							<td class="align_left"><a class="pr_name" href="#">${sorder.name }</a>
 							</td>
-							<td class="align_center vline"><span class="price">${sorder.price }</span>
+							<td class="align_center vline">
+								${sorder.price }
 							</td>
 							<td class="align_center vline">
-								<div class="wrap-input">
-									<input class="text" style="height: 20px;" value="${sorder.number }">		
-								</div>
+								<!-- 文本框 -->
+								<input class="text" style="height: 20px;" value="${sorder.number }" lang="${sorder.number }" />		
 							</td>
-							<td class="align_center vline"><span class="price">${sorder.price*sorder.number }</span>
+							<td class="align_center vline">
+								${sorder.price*sorder.number }
 							</td>
 							<td class="align_center vline"><a href="#" class="remove"></a>
 							</td>
@@ -140,7 +188,7 @@
 								<td width="60%" colspan="1" class="align_left"><strong>小计</strong>
 								</td>
 								<td class="align_right" style=""><strong><span
-										class="price">￥109.00</span>
+										class="price">￥:${sessionScope.forder.total }</span>
 								</strong>
 								</td>
 							</tr>
@@ -152,17 +200,19 @@
 							<tr>
 								<td width="60%" colspan="1" class="align_left total"><strong>总计</strong>
 								</td>
-								<td class="align_right" style=""><span class="total"><strong>￥${SessionScope.forder.total }</strong>
+								<td class="align_right" style="">￥:<span class="total" id="total"><strong>${sessionScope.forder.total }</strong>
 								</span>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="action_buttonbar">
+					<a href="${shop }/user/confirm.jsp">
 						<button type="button" title="" class="checkout fr"
 							style="background-color: #f38256;">
-							<font><a href="${shop }/user/confirm.jsp">订单确认</a></font>
+							<font>订单确认</font>
 						</button>
+					</a>
 						<button type="button" title="" class=" fr">
 							<font><font>清空购物车</font>
 							</font>

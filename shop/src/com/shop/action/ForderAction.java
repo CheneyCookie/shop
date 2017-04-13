@@ -1,12 +1,11 @@
 package com.shop.action;
 
-import java.util.ArrayList;
+import java.io.ByteArrayInputStream;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.shop.bean.Forder;
-import com.shop.bean.Sorder;
 import com.shop.bean.Status;
 import com.shop.bean.User;
 
@@ -16,6 +15,9 @@ public class ForderAction extends BaseAction<Forder>{
 
 	private static final long serialVersionUID = 1L;
 	
+	
+	
+
 	//此方式在此处不安全      掉了一段视频，不清楚，改来改去感觉被戏耍
 	@Override 
 	public Forder getModel() {
@@ -52,4 +54,17 @@ public class ForderAction extends BaseAction<Forder>{
 		
 		return "bank";
 		}
+	
+	
+	public String updateNumber(){
+		Integer num=0;
+		if(model==null){
+			inputStream=new ByteArrayInputStream("0".getBytes());
+		}else{
+			num=forderService.updateNumber(model);
+			inputStream=new ByteArrayInputStream(num.toString().getBytes());
+		}
+		return "stream";
+	}
+	
 }

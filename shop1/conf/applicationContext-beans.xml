@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 泛型类不能被实例化 -->
+	<!-- 
+		<bean id="baseService" class="com.shop.service.impl.BaseServiceImpl" lazy-init="true">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+		</bean>
+	 -->
+	
+	
+	<bean id="categoryService" class="com.shop.service.impl.CategoryServiceImpl" parent="baseService">
+	</bean>
+	
+	<bean id="accountService" class="com.shop.service.impl.AccountServiceImpl" parent="baseService">
+	</bean>
+	
+	<!-- 若果是prototype类型：则默认是使用的时候再创建，不会启动的时候自动创建 -->
+	<!-- 
+		<bean id="baseAction" class="com.shop.action.BaseAction" scope="prototype">
+			<property name="categoryService" ref="categoryService"></property>
+			<property name="accountService" ref="accountService"></property>
+		</bean>
+	 -->
+	
+	<bean id="categoryAction" class="com.shop.action.CategoryAction" scope="prototype" parent="baseAction">
+	</bean>
+	
+	<bean id="accountAction" class="com.shop.action.AccountAction" scope="prototype" parent="baseAction"></bean>
+	
+	<!-- 此Action没有用于数据的存储，也不需要调用业务逻辑，因此单例即可 -->
+	<bean id="sendAction" class="com.shop.action.SendAction"></bean>
+
+</beans>

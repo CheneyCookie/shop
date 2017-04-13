@@ -1,5 +1,7 @@
 package com.shop.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.shop.bean.Forder;
@@ -40,6 +42,22 @@ public class SorderServiceImpl extends BaseServiceImpl<Sorder> implements Sorder
 		sorder.setPrice(product.getPrice());
 		sorder.setProduct(product);
 		return sorder;
+	}
+
+	@Override
+	public Forder updateSorder(Forder forder,Sorder sorder) {
+		for(Sorder temp:forder.getSorderList()){
+			if(temp.getProduct().getId().equals(sorder.getProduct().getId())){
+				temp.setNumber(sorder.getNumber());
+			}
+		}
+		return forder;
+	}
+
+	
+	@Override
+	public List<Object> querySale(int number) {
+		return sorderDao.querySale(number);
 	}
 	
 }

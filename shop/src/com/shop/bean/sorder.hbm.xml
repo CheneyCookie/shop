@@ -8,7 +8,7 @@
 			<generator class="native"></generator>
 		</id>
 		<property name="name"></property>
-		<property name="price"></property>
+		<property name="price" type="java.math.BigDecimal"></property>
 		<property name="number"></property>
 		<!-- lazy="false":则级联查询关联对象 
 			N+1问题：首先发出一条语句查询当前对象，然后发出N条对象查询关联对象，N不确定，因此效率比较低

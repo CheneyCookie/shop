@@ -1,5 +1,7 @@
 package com.shop.action;
 
+import java.io.ByteArrayInputStream;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -13,7 +15,9 @@ public class UserAction extends BaseAction<User>{
 	
 	public String login(){
 		//进行登陆判断
+		System.out.println("login1:"+model.getLogin());
 		model=userService.login(model);
+		System.out.println("login2:"+model.getLogin());
 		if(model==null){
 			session.put("error", "登陆失败");
 			return "ulogin";
@@ -27,5 +31,32 @@ public class UserAction extends BaseAction<User>{
 				return "goURL";
 			}
 		}
+	}
+	
+	public String register(){
+		userService.save(model);
+		return "register";
+	}
+	
+	public String check(){
+		System.out.println("check!"+model);
+		System.out.println("check1:"+model.getLogin());
+		model=userService.queryByName(model);
+		if(model==null){
+			inputStream=new ByteArrayInputStream("true".getBytes());
+		}else{
+			inputStream=new ByteArrayInputStream("false".getBytes());
+		}
+		return "stream";
+	}
+	
+	public String checkSession(){
+		User user =(User) session.get("user");
+		if(user==null){
+			inputStream=new ByteArrayInputStream("false".getBytes());
+		}else{
+			inputStream=new ByteArrayInputStream("true".getBytes());
+		}
+		return "stream";
 	}
 }

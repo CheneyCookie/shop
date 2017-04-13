@@ -29,20 +29,22 @@
 		<default-interceptor-ref name="sshStack"></default-interceptor-ref>
 		 -->
 		
-		<!-- 抛出异常页面跳转
-		<global-results>
-			<result name="exception">/WEB-INF/views/message.jsp</result>
-		</global-results>
-		<global-exception-mappings>
-			<exception-mapping result="exception" exception=""></exception-mapping>
-		</global-exception-mappings>
-		 -->
+		
 		 
 		 <global-results>
 		 	<result name="aindex">/WEB-INF/main/aindex.jsp</result>
-		 	<result name="index">/index.jsp</result>
+		 	<result name="index" type="redirect">/index.jsp</result>
 		 	<result name="ulogin" type="redirect">/ulogin.jsp</result>
+		 	<result name="stream" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+			<!-- 抛出异常页面跳转 -->
+			<result name="exception">/exception.jsp</result>
 		 </global-results>
+		 
+		<global-exception-mappings>
+			<exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
 		
 		<action name="cate_*" class="categoryAction" method="{1}">
 		<!-- 必须先添加json包，然后继承json-deafult -->
@@ -70,9 +72,7 @@
 					\[\d+\]\.account
 				</param>
 			</result>
-			<result name="stream" type="stream">
-				<param name="inputName">inputStream</param>
-			</result>
+			
 		</action>
 		
 		<action name="acco_*" class="accountAction" method="{1}">
@@ -109,15 +109,20 @@
 		
 		<action name="sorder_*" class="sorderAction" method="{1}">
 			<result name="showCar" type="redirect">/showCar.jsp</result>
+			<result name="jsonList" type="json"></result>
 		</action>
 		
 		<action name="user_*" class="userAction" method="{1}">
 			<result name="goURL" type="redirect">
 				${#session.goURL}
 			</result>
+			<result name="register">/index.jsp</result>
 		</action>
 		<action name="forder_*" class="forderAction" method="{1}">
 			<result name="bank" type="redirect">/user/bank.jsp</result>
+			<result name="stream" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
 		</action>
 		<action name="pay_*" class="payAction" method="{1}">
 			<result name="pay">/user/pay.jsp</result>

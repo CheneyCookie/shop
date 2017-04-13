@@ -1,6 +1,7 @@
 package com.shop.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Product implements Serializable{
@@ -8,7 +9,7 @@ public class Product implements Serializable{
 	private Integer id;
 	private String name;
 	//商品价格
-	private Float price;
+	private BigDecimal price;
 	//商品图片
 	private String picture;
 	//商品简单介绍
@@ -41,10 +42,10 @@ public class Product implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Float getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Float price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public String getPicture() {
@@ -89,7 +90,7 @@ public class Product implements Serializable{
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	public Product(Integer id, String name, Float price, String picture,
+	public Product(Integer id, String name, BigDecimal price, String picture,
 			String remark, String xremark, Boolean commend,
 			Boolean open) {
 		super();
@@ -102,12 +103,11 @@ public class Product implements Serializable{
 		this.commend = commend;
 		this.open = open;
 	}
-	public Product(int id, String name, double price, String picture,
+	public Product(int id, String name, BigDecimal price, String picture,
 			String remark, String xremark, boolean commend, boolean open) {
-		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.name = name;
-		this.price = (float) price;
+		this.price = price;
 		this.picture = picture;
 		this.remark = remark;
 		this.xremark = xremark;

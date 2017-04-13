@@ -26,7 +26,7 @@ public class MessageUtilImpl implements MessageUtil {
 				post.setParameter("uid", "五分热度");//用户名
 				post.setParameter("key", "a9b192a59fe6c5756ee7");//密钥
 				post.setParameter("smsMob", "15079030106");//手机号码
-				post.setParameter("smsText", "订单123456789"+id+"已经支付成功");
+				post.setParameter("smsText", "订单"+id+"已经支付成功");
 				//4.提交请求
 				int code=0;
 				String result=null;

@@ -4,6 +4,14 @@
 <head>
 	<%@include file="/public/head.jspf"%>
 	<link rel="stylesheet" href="${shop}/css/detail.css" />
+	<script type="text/javascript">
+		$(function(){
+			$.post("forder_updateNumber",{},function(number){
+				$("#itemnum").html(number);
+				
+			},"text");
+		});
+	</script>
 </head>
 <body>
     <div class="wrapper">
@@ -15,13 +23,13 @@
                     <div class="welcom fl">欢迎光临LEISUPET SHOP!</div>
                     <ul class="top_links fr">
                         <li class="highlight">
-                            <a href="#">首页</a>
+                            <a href="index.jsp">首页</a>
                         </li>
                         <li>
                             <a href="#">我的账户</a>
                         </li>
                         <li>
-                            <a href="#">购物车</a>
+                            <a href="showCar.jsp">购物车</a>
                         </li>
                         <li>
                             <a href="#">注册</a>
@@ -40,10 +48,10 @@
                     <!-- 购物车 -->
                     <div class="minicart">
                         <a class="minicart_link" href="#">
-                            <span class="item"> <b>2</b>
-                                件/
-                            </span>
-                            <span class="price"> <b>￥199.80</b>
+                            <span id="itemnum" class="item">
+                            </span> 件/
+                            <span class="price"> 
+                            	<b>${sessionScope.forder.total }</b>
                             </span>
                         </a>
                     </div>
@@ -90,7 +98,7 @@
                                         <a href="#">牛仔裤</a>
                                     </li>
                                     <li>
-                                        <a href="#">风衣 & 运动夹克</a>
+                                        <a href="#">风衣  运动夹克</a>
                                     </li>
                                 </ul>
                             </li>
@@ -116,7 +124,7 @@
                                         <a href="#">牛仔系列</a>
                                     </li>
                                     <li>
-                                        <a href="#">风衣 & 西服</a>
+                                        <a href="#">风衣  西服</a>
                                     </li>
                                 </ul>
                             </li>
@@ -143,11 +151,10 @@
                                         <a href="#">牛仔裤</a>
                                     </li>
                                     <li>
-                                        <a href="#">风衣 & 运动夹克</a>
+                                        <a href="#">风衣  运动夹克</a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li>
+                            </li>                            <li>
                                 <a href="#">装饰品</a>
                                 <ul>
                                     <li>
@@ -169,7 +176,7 @@
                                         <a href="#">牛仔系列</a>
                                     </li>
                                     <li>
-                                        <a href="#">风衣 & 西服</a>
+                                        <a href="#">风衣  西服</a>
                                     </li>
                                 </ul>
                             </li>
@@ -207,7 +214,7 @@
                 <div class="product_leftcol fl">
                     <div id="jingdong">
                         <div class="datu">
-                            <img src="${shop}/images/${product.picture}" />
+                            <img src="${shop}/image/${product.picture}" />
                             <div id="fangdajing"></div>
                         </div>
                         <div class="xiaotu">
@@ -215,22 +222,22 @@
                             <div class="tu">
                                 <ul>
                                     <li>
-                                        <img src="images/0.png" />
+                                        <img src="${shop}/image/${product.picture}" />
                                     </li>
                                     <li>
-                                        <img src="images/1.png" />
+                                        <img src="${shop}/image/${product.picture}" />
                                     </li>
                                     <li>
-                                        <img src="images/2.png" />
+                                        <img src="${shop}/image/${product.picture}" />
                                     </li>
                                     <li>
-                                        <img src="images/3.png" />
+                                        <img src="${shop}/image/${product.picture}" />
                                     </li>
                                     <li>
-                                        <img src="images/4.png" />
+                                        <img src="${shop}/image/${product.picture}" />
                                     </li>
                                     <li>
-                                        <img src="images/5.png" />
+                                        <img src="${shop}/image/${product.picture}" />
                                     </li>
                                     <li>
                                         <img src="images/6.png" />
@@ -316,9 +323,9 @@
                         </li>
                     </ul>
                     <div class="add_to_buttons">
-                        <button class="add_cart">
-                        	<a href="${shop }/sorder_addSorder?product.id=${product.id}">加入购物车</a>
-                        </button>
+                        
+                        	<a href="${shop }/sorder_addSorder?product.id=${product.id}"><button class="add_cart">加入购物车</button></a>
+                        
                     </div>
                 </div>
                 <!--详情右侧结束--> </div>

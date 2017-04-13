@@ -56,6 +56,7 @@ public class FileUploadUtil implements FileUpload {
 	@Override
 	public String uploadFile(FileImage fileImage) {
 		// 获取新的文件名
+		System.out.println("---文件名---"+fileImage.getFilename());
 		String pic = newFileName(fileImage.getFilename());
 		try {
 			FileUtil.copyFile(fileImage.getFile(), new File(filePath, pic));

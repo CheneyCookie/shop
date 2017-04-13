@@ -3,8 +3,6 @@
 <html>
 <head>
 	<%@include file="/public/head.jspf"%>
-	<link rel="stylesheet" href="${shop}/css/public.css" />
-	<link rel="stylesheet" href="${shop}/css/style.css" />
 	<style type="text/css">
 		#dd div{
 			padding: 5px;
@@ -19,11 +17,11 @@
 					<!--头部小导航-->
 					<div class="welcom fl">欢迎光临LEISUPET SHOP!</div>
 					<ul class="top_links fr">
-						<li class="highlight"><a href="#">首页</a></li>
+						<li class="highlight"><a href="index.jsp">首页</a></li>
 						<li><a href="#">我的账户</a></li>
-						<li><a href="#">购物车</a></li>
-						<li><a href="#">注册</a></li>
-						<li><a href="#">登录</a></li>
+						<li><a href="showCar.jsp">购物车</a></li>
+						<li><a href="uregister.jsp">注册</a></li>
+						<li><a href="ulogin.jsp">登录</a></li>
 					</ul>
 					<!--头部小导航结束-->
 					<!-- logo -->
@@ -61,7 +59,7 @@
 									<li><a href="#">卡其裤</a></li>
 									<li><a href="#">休闲裤</a></li>
 									<li><a href="#">牛仔裤</a></li>
-									<li><a href="#">风衣 & 运动夹克</a></li>
+									<li><a href="#">风衣  运动夹克</a></li>
 								</ul></li>
 							<li><a href="#">装饰品</a>
 								<ul>
@@ -71,7 +69,7 @@
 									<li><a href="#">帽子和手套</a></li>
 									<li><a href="#">生活时尚</a></li>
 									<li><a href="#">牛仔系列</a></li>
-									<li><a href="#">风衣 & 西服</a></li>
+									<li><a href="#">风衣  西服</a></li>
 								</ul></li>
 						</ul></li>
 					<!--二级菜单结束-->
@@ -83,7 +81,7 @@
 									<li><a href="#">休闲裤</a></li>
 									<li><a href="#">卡其裤</a></li>
 									<li><a href="#">牛仔裤</a></li>
-									<li><a href="#">风衣 & 运动夹克</a></li>
+									<li><a href="#">风衣  运动夹克</a></li>
 								</ul></li>
 							<li><a href="#">装饰品</a>
 								<ul>
@@ -93,7 +91,7 @@
 									<li><a href="#">帽子和手套</a></li>
 									<li><a href="#">生活时尚</a></li>
 									<li><a href="#">牛仔系列</a></li>
-									<li><a href="#">风衣 & 西服</a></li>
+									<li><a href="#">风衣  西服</a></li>
 								</ul></li>
 						</ul> <!--二级菜单结束--></li>
 					<li><a href="#">儿童</a></li>
@@ -112,15 +110,15 @@
 						<input type="text" name="login" />
 					</div>
 					<div>
-						<label for="password">密码:&nbsp</label> 
-						<input type="text" name="password" />
+						<label for="password">密码:&nbsp;</label> 
+						<input type="password" name="password" />
 					</div>
 					<div>
 						${sessionScope.error}  
 					</div>
 					<div>
 						<input type="submit" value="登陆" style="width:60px;height:30px" />
-						<input type="button" value="注册" onclick="window.open('${shop}/index.jsp','_self')" style="width:60px;height:30px" />
+						<input type="button" value="注册" onclick="location='${shop }/uregister.jsp' " style="width:60px;height:30px" />
 					</div>
 			   </form>
 			   <div style="clear:both"></div>

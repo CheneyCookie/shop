@@ -58,7 +58,7 @@ public class PayAction extends BaseAction<Object> implements ParameterAware{
 		//5.跳转到支付页面
 		//下一步无法进行，所以在此支付成功，发送邮件提示
 		emailUtil.sendEmail("", forder.getId().toString());
-		
+		messageUtil.sendMessage(forder.getId().toString(),"");
 		return "pay";
 	}
 

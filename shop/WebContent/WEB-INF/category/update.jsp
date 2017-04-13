@@ -85,7 +85,7 @@
 	      	  <input type="radio" name="hot" value="false" checked="checked">非热点
 	    </div>
 	    <div>   
-	        <label for="hot">所属管理员:</label>  
+	        <label for="cc">所属管理员:</label>  
 	        <!-- 基于html代码的方式
 	        <select id="cc" class="easyui-combobox" name="dept" style="width:200px;">   
     			<option value="aa">aitem1</option>   

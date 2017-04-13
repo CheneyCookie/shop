@@ -11,7 +11,6 @@ public class Status implements Serializable{
 	
 	public Status() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 

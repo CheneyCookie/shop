@@ -1,7 +1,5 @@
 package com.shop.listener;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 
 import javax.servlet.ServletContextEvent;
@@ -11,10 +9,6 @@ import javax.servlet.annotation.WebListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.shop.bean.Category;
-import com.shop.bean.Product;
-import com.shop.service.CategoryService;
-import com.shop.service.ProductService;
 import com.shop.util.FileUpload;
 import com.shop.util.ProductTimerTask;
 

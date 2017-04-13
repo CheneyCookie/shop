@@ -4,6 +4,14 @@
 <html>
 <head>
 <%@ include file="/public/head.jspf" %>
+<script type="text/javascript">
+	$(function(){
+		$.post("forder_updateNumber",{},function(number){
+			$("#itemnum").html(number);
+			
+		},"text");
+	});
+</script>
 </head>
 <body>
 	<div class="wrapper">
@@ -14,11 +22,11 @@
                             <!--头部小导航-->
                             <div class="welcom fl">欢迎光临LEISUPET SHOP! </div>
                             <ul class="top_links fr">
-                                <li class="highlight"><a href="#">首页</a></li>
+                                <li class="highlight"><a href="index.jsp">首页</a></li>
                                 <li><a href="#">我的账户</a></li>
-                                <li><a href="#">购物车</a></li>
-                                <li><a href="#">注册</a></li>
-                                <li ><a href="#">登录</a></li>
+                                <li><a href="showCar.jsp">购物车</a></li>
+                                <li><a href="uregister.jsp">注册</a></li>
+                                <li ><a href="ulogin.jsp">登录</a></li>
                                 <li ><a href="send_main_aindex">管理员登陆</a></li>
                             </ul>
                             <!--头部小导航结束-->
@@ -27,11 +35,10 @@
                             <!-- 购物车 -->
                             <div class="minicart">
                                 <a class="minicart_link" href="#">
-                                    <span class="item">
-                                        <b>2</b> 件/
-                                    </span>
+                                    <span id="itemnum" class="item">
+                                    </span> 件/
                                     <span class="price">
-                                        <b>￥199.80</b>
+                                        <b>${sessionScope.forder.total }</b>
                                     </span>
                                 </a>
                             </div>
@@ -66,7 +73,7 @@
                                 <li><a href="#">卡其裤</a></li>
                                 <li><a href="#">休闲裤</a></li>
                                 <li><a href="#">牛仔裤</a></li>
-                                <li><a href="#">风衣 & 运动夹克</a></li>
+                                <li><a href="#">风衣  运动夹克</a></li>
                             </ul>
                         </li>
                         <li> <a href="#">装饰品 </a>
@@ -77,7 +84,7 @@
                                 <li><a href="#">帽子和手套 </a></li>
                                 <li><a href="#">生活时尚 </a></li>
                                 <li><a href="#">牛仔系列 </a></li>
-                                <li><a href="#">风衣 & 西服</a></li>
+                                <li><a href="#">风衣  西服</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -93,7 +100,7 @@
                                 <li><a href="#">休闲裤</a></li>
                                 <li><a href="#">卡其裤</a></li>
                                 <li><a href="#">牛仔裤</a></li>
-                                <li><a href="#">风衣 & 运动夹克</a></li>
+                                <li><a href="#">风衣  运动夹克</a></li>
                             </ul>
                         </li>
                          <li> <a href="#">装饰品 </a>
@@ -104,7 +111,7 @@
                                 <li><a href="#">帽子和手套 </a></li>
                                 <li><a href="#">生活时尚 </a></li>
                                 <li><a href="#">牛仔系列 </a></li>
-                                <li><a href="#">风衣 & 西服</a></li>
+                                <li><a href="#">风衣  西服</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -156,7 +163,9 @@
 	                	<!-- 小循环开始 -->
 	                	<c:forEach items="${list }" var="product">
 		                    <li>
+		                    	<div>
 		                    	<a  href="${shop }/pro_get?id=${product.id}" class="product_image"><img src="${shop }/image/${product.picture}" /></a>
+		                    	</div>
 		                        <div class="product_info">
 		                            <h3><a href="${shop }/pro_get?id=${product.id}">商品名称：${product.name }</a></h3>
 		                            <small>${product.remark }</small> 

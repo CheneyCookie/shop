@@ -70,7 +70,7 @@ public class EmailUtilImpl implements EmailUtil {
 			try {
 				transport.close();
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				throw new RuntimeException("邮件发送失败!");
 			}
 		}
 		
